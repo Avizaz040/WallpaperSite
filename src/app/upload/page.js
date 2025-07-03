@@ -8,17 +8,32 @@ export default function UploadPage() {
   const [title, setTitle] = useState("");
   const [category, setCategory] = useState("");
   const [image, setImage] = useState("");
+  const [loading, setLoading] = useState(true); // NEW
   const [authorized, setAuthorized] = useState(false);
-  const [loading, setLoading] = useState(true);
   const router = useRouter();
 
+  const countdown = 5; // seconds
+  const [secondsLeft, setSecondsLeft] = useState(countdown);
+
+  // Check if user is admin
+  // If not, redirect to login page after 5 seconds
   useEffect(() => {
     const isAdmin = localStorage.getItem("isAdmin") === "true";
     if (!isAdmin) {
-      router.push("/login");
+      setLoading(false); // Set loading to false before starting countdown
+      let seconds = countdown;
+      const interval = setInterval(() => {
+        seconds -= 1;
+        setSecondsLeft(seconds);
+        if (seconds <= 0) {
+          clearInterval(interval);
+          router.push("/login");
+        }
+      }, 1000);
+      return () => clearInterval(interval); // Cleanup interval on unmount
     } else {
-      setAuthorized(true);
-      setLoading(false);
+      setAuthorized(isAdmin);
+      setLoading(false); // Set loading to false after checking auth
     }
   }, []);
 
@@ -41,58 +56,73 @@ export default function UploadPage() {
 
   return (
     <main className="min-h-screen flex items-center justify-center bg-gray-100 p-6 ">
-      <button
-        onClick={() => {
-          localStorage.removeItem("isAdmin");
-          router.push("/login");
-        }}
-        className="absolute top-6 right-[10%] text-red-500 underline underline-offset-2 cursor-pointer"
-      >
-        Logout
-      </button>
+      {loading ? (
+        <div className="text-xl text-gray-500">Checking authorization...</div>
+      ) : !authorized ? (
+        <div className="flex flex-col gap-4 justify-center items-center min-h-[60vh]">
+          <p className="text-3xl text-red-600">You are not authorized..!!</p>
+          <p className="text-2xl text-gray-600 flex flex-col justify-center items-center">
+            Redirecting to login page in..
+            <span className="text-5xl text-green-600">{secondsLeft}</span>
+          </p>
+          <p className="text-sm text-gray-500">Please wait...</p>
+        </div>
+      ) : (
+        <>
+          <button
+            onClick={() => {
+              localStorage.removeItem("isAdmin");
+              router.push("/login");
+            }}
+            className="absolute top-6 right-[10%] text-red-500 underline underline-offset-2 cursor-pointer"
+          >
+            Logout
+          </button>
 
-      <form
-        onSubmit={handleSubmit}
-        className="bg-white p-6 rounded shadow-md w-full max-w-md"
-      >
-        <h2 className="text-2xl font-bold mb-4 text-indigo-700">
-          Upload New Wallpaper
-        </h2>
+          <form
+            onSubmit={handleSubmit}
+            className="bg-white p-6 rounded shadow-md w-full max-w-md"
+          >
+            <h2 className="text-2xl font-bold mb-4 text-indigo-700">
+              Upload New Wallpaper
+            </h2>
 
-        <label className="block mb-2 font-medium">Title</label>
-        <input
-          type="text"
-          value={title}
-          onChange={(e) => setTitle(e.target.value)}
-          required
-          className="w-full border border-gray-300 p-2 rounded mb-4"
-        />
+            <label className="block mb-2 font-medium">Title</label>
+            <input
+              type="text"
+              value={title}
+              onChange={(e) => setTitle(e.target.value)}
+              required
+              className="w-full border border-gray-300 p-2 rounded mb-4"
+            />
 
-        <label className="block mb-2 font-medium">Category</label>
-        <input
-          type="text"
-          value={category}
-          onChange={(e) => setCategory(e.target.value)}
-          required
-          className="w-full border border-gray-300 p-2 rounded mb-4"
-        />
+            <label className="block mb-2 font-medium">Category</label>
+            <input
+              type="text"
+              value={category}
+              onChange={(e) => setCategory(e.target.value)}
+              required
+              className="w-full border border-gray-300 p-2 rounded mb-4"
+            />
 
-        <label className="block mb-2 font-medium">Image URL</label>
-        <input
-          type="text"
-          value={image}
-          onChange={(e) => setImage(e.target.value)}
-          required
-          className="w-full border border-gray-300 p-2 rounded mb-6"
-        />
+            <label className="block mb-2 font-medium">Image URL</label>
+            <input
+              type="text"
+              value={image}
+              onChange={(e) => setImage(e.target.value)}
+              required
+              className="w-full border border-gray-300 p-2 rounded mb-6"
+            />
 
-        <button
-          type="submit"
-          className="bg-indigo-600 text-white w-full py-2 rounded hover:bg-indigo-700"
-        >
-          Upload
-        </button>
-      </form>
+            <button
+              type="submit"
+              className="bg-indigo-600 text-white w-full py-2 rounded hover:bg-indigo-700"
+            >
+              Upload
+            </button>
+          </form>
+        </>
+      )}
     </main>
   );
 }
