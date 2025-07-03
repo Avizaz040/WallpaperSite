@@ -1,4 +1,5 @@
 "use client";
+//Upload page for admin to upload wallpapers
 
 import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
@@ -8,6 +9,7 @@ export default function UploadPage() {
   const [category, setCategory] = useState("");
   const [image, setImage] = useState("");
   const [authorized, setAuthorized] = useState(false);
+  const [loading, setLoading] = useState(true);
   const router = useRouter();
 
   useEffect(() => {
@@ -16,6 +18,7 @@ export default function UploadPage() {
       router.push("/login");
     } else {
       setAuthorized(true);
+      setLoading(false);
     }
   }, []);
 

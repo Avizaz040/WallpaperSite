@@ -1,5 +1,7 @@
 'use client'
 
+// Login page for admin to access upload functionality
+
 import { useState, useEffect } from 'react'
 import { useRouter } from 'next/navigation'
 
