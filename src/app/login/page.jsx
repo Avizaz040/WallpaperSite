@@ -36,22 +36,22 @@ export default function LoginPage() {
       >
         <h2 className="text-2xl font-bold mb-4 text-indigo-700">Admin Login</h2>
 
-        <label className="block mb-2 font-medium">Username</label>
+        <label className="block mb-2 font-medium text-black">Username</label>
         <input
           type="text"
           value={username}
           onChange={(e) => setUsername(e.target.value)}
           required
-          className="w-full border border-gray-300 p-2 rounded mb-4"
+          className="w-full border border-gray-300 p-2 rounded mb-4 text-black"
         />
 
-        <label className="block mb-2 font-medium">Password</label>
+        <label className="block mb-2 font-medium text-black">Password</label>
         <input
           type="password"
           value={password}
           onChange={(e) => setPassword(e.target.value)}
           required
-          className="w-full border border-gray-300 p-2 rounded mb-6"
+          className="w-full border border-gray-300 p-2 rounded mb-6 text-black"
         />
 
         <button
