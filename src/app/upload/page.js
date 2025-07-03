@@ -11,9 +11,12 @@ export default function UploadPage() {
   const [loading, setLoading] = useState(true); // NEW
   const [authorized, setAuthorized] = useState(false);
   const router = useRouter();
-
   const countdown = 5; // seconds
   const [secondsLeft, setSecondsLeft] = useState(countdown);
+
+  const categories = [
+    "Nature", "Animals", "Technology", "Spiritual", "Space", "Art & Acethetic", "Cars",
+    "Character", "Travel", "Festival", "Vector", "Movies", "Gaming"];
 
   // Check if user is admin
   // If not, redirect to login page after 5 seconds
@@ -48,6 +51,9 @@ export default function UploadPage() {
 
     if (res.ok) {
       alert("Wallpaper uploaded!");
+      setTitle("");
+      setCategory("");
+      setImage("");
       // router.push('/')
     } else {
       alert("Upload failed");
@@ -81,42 +87,55 @@ export default function UploadPage() {
 
           <form
             onSubmit={handleSubmit}
-            className="bg-white p-6 rounded shadow-md w-full max-w-md"
+            className="bg-white p-6 rounded shadow-md w-full max-w-md "
           >
             <h2 className="text-2xl font-bold mb-4 text-indigo-700">
               Upload New Wallpaper
             </h2>
 
-            <label className="block mb-2 font-medium">Title</label>
+            <label className="block mb-2 font-medium text-black">Title</label>
             <input
               type="text"
               value={title}
               onChange={(e) => setTitle(e.target.value)}
               required
-              className="w-full border border-gray-300 p-2 rounded mb-4"
+              className="w-full border border-gray-300 p-2 rounded mb-6 text-black"
             />
 
-            <label className="block mb-2 font-medium">Category</label>
+            {/* <label className="block mb-2 font-medium text-black">Category</label>
             <input
               type="text"
               value={category}
               onChange={(e) => setCategory(e.target.value)}
               required
-              className="w-full border border-gray-300 p-2 rounded mb-4"
-            />
+              className="w-full border border-gray-300 p-2 rounded mb-4 text-black"
+            /> */}
+            <select
+              value={category}
+              onChange={(e) => setCategory(e.target.value)}
+              required
+              className="w-full border border-gray-300 p-2 rounded mb-4 text-gray-400"
+            >
+              <option value="" disabled >Select Category</option>
+              {categories.map((cat) => (
+                <option key={cat} value={cat} className="text-black">
+                  {cat}
+                </option>
+              ))}
+            </select>
 
-            <label className="block mb-2 font-medium">Image URL</label>
+            <label className="block mb-2 font-medium text-black">Image URL</label>
             <input
               type="text"
               value={image}
               onChange={(e) => setImage(e.target.value)}
               required
-              className="w-full border border-gray-300 p-2 rounded mb-6"
+              className="w-full border border-gray-300 p-2 rounded mb-6 text-black"
             />
 
             <button
               type="submit"
-              className="bg-indigo-600 text-white w-full py-2 rounded hover:bg-indigo-700"
+              className="bg-indigo-600 text-white w-full py-2 rounded hover:bg-indigo-700 cursor-pointer transition"
             >
               Upload
             </button>
