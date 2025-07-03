@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, useEffect } from "react";
+import Image from "next/image";
 import { motion } from "framer-motion";
 import WallpaperModal from "@/components/WallpaperModal";
 
@@ -108,10 +109,14 @@ export default function Home() {
                 className="cursor-pointer rounded overflow-hidden shadow-md hover:scale-105 transition"
                 onClick={() => setSelectedWallpaper(w)}
               >
-                <img
+                <Image
                   src={w.image}
                   alt={w.title}
+                  width={360}
+                  height={640}
                   className="w-full aspect-[9/16] object-cover max-h-72"
+                  unoptimized={false}
+                  priority={false}
                 />
               </motion.div>
             ))}
