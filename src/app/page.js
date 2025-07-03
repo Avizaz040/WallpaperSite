@@ -32,6 +32,7 @@ export default function Home() {
       {loading ? (
         <div className="flex justify-center items-center min-h-[60vh]">
           <div className="w-12 h-12 border-4 border-indigo-500 border-t-transparent rounded-full animate-spin"></div>
+          <span className="ml-4 text-indigo-600">Loading wallpapers...</span>
         </div>
       ) : (
         <>
