@@ -49,16 +49,21 @@ export default function Home() {
 
   // Animation Variants
   const gridVariants = {
+    hidden: {},
     visible: {
       transition: {
-        staggerChildren: 0.03,
+        staggerChildren: 0.05, // Delay between each child
+        delayChildren: 0.4, // Initial delay before first child animates
       },
     },
   };
 
   const cardVariants = {
-    hidden: { opacity: 0, y: 20 },
-    visible: { opacity: 1, y: 0 },
+    hidden: { opacity: 0},
+    visible: {
+      opacity: 1,
+      transition: { duration: 0.2, ease: "easeOut" },
+    },
   };
 
   return (
@@ -96,8 +101,9 @@ export default function Home() {
 
           {/* Wallpapers Grid with animation */}
           <motion.div
+            key={selectedCategory} // Important: triggers re-animation on category change
             className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-8 gap-4"
-            variants={gridVariants}
+            variants={ gridVariants }
             initial="hidden"
             animate="visible"
           >
