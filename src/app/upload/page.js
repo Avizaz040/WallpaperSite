@@ -1,38 +1,60 @@
-'use client'
+"use client";
 
-import { useState } from 'react'
-import { useRouter } from 'next/navigation'
+import { useState, useEffect } from "react";
+import { useRouter } from "next/navigation";
 
 export default function UploadPage() {
-  const [title, setTitle] = useState('')
-  const [category, setCategory] = useState('')
-  const [image, setImage] = useState('')
-  const router = useRouter()
+  const [title, setTitle] = useState("");
+  const [category, setCategory] = useState("");
+  const [image, setImage] = useState("");
+  const [authorized, setAuthorized] = useState(false);
+  const router = useRouter();
+
+  useEffect(() => {
+    const isAdmin = localStorage.getItem("isAdmin") === "true";
+    if (!isAdmin) {
+      router.push("/login");
+    } else {
+      setAuthorized(true);
+    }
+  }, []);
 
   const handleSubmit = async (e) => {
-    e.preventDefault()
+    e.preventDefault();
 
-    const res = await fetch('/api/wallpapers', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
+    const res = await fetch("/api/wallpapers", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ title, category, image }),
-    })
+    });
 
     if (res.ok) {
-      alert('Wallpaper uploaded!')
-      router.push('/')
+      alert("Wallpaper uploaded!");
+      // router.push('/')
     } else {
-      alert('Upload failed')
+      alert("Upload failed");
     }
-  }
+  };
 
   return (
-    <main className="min-h-screen flex items-center justify-center bg-gray-100 p-6">
+    <main className="min-h-screen flex items-center justify-center bg-gray-100 p-6 ">
+      <button
+        onClick={() => {
+          localStorage.removeItem("isAdmin");
+          router.push("/login");
+        }}
+        className="absolute top-6 right-[10%] text-red-500 underline underline-offset-2 cursor-pointer"
+      >
+        Logout
+      </button>
+
       <form
         onSubmit={handleSubmit}
         className="bg-white p-6 rounded shadow-md w-full max-w-md"
       >
-        <h2 className="text-2xl font-bold mb-4 text-indigo-700">Upload New Wallpaper</h2>
+        <h2 className="text-2xl font-bold mb-4 text-indigo-700">
+          Upload New Wallpaper
+        </h2>
 
         <label className="block mb-2 font-medium">Title</label>
         <input
@@ -69,5 +91,5 @@ export default function UploadPage() {
         </button>
       </form>
     </main>
-  )
+  );
 }
