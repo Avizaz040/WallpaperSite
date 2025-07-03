@@ -15,7 +15,7 @@ export default function UploadPage() {
   const [secondsLeft, setSecondsLeft] = useState(countdown);
 
   const categories = [
-    "Nature", "Animals","Animated", "Technology", "Spiritual", "Space", "Art & Acethetic", "Cars",
+    "Nature", "Animals","Animated", "Technology", "Spiritual", "Space", "Art & Aesthetic", "Cars", "City",
     "Character", "Travel", "Festival", "Vector", "Movies", "Gaming"];
 
   // Check if user is admin

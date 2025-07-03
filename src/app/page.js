@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, useEffect } from "react";
+import { motion } from "framer-motion";
 import WallpaperModal from "@/components/WallpaperModal";
 
 export default function Home() {
@@ -8,7 +9,10 @@ export default function Home() {
   const [wallpapers, setWallpapers] = useState([]);
   const [selectedCategory, setSelectedCategory] = useState("All");
   const [selectedWallpaper, setSelectedWallpaper] = useState(null);
+  const [visibleCount, setVisibleCount] = useState(48); // initial: 6 rows * 8 columns
+  const [observerTarget, setObserverTarget] = useState(null);
 
+  // Fetch wallpapers
   useEffect(() => {
     fetch("/api/wallpapers")
       .then((res) => res.json())
@@ -18,17 +22,50 @@ export default function Home() {
       });
   }, []);
 
+  // IntersectionObserver for infinite scroll
+  useEffect(() => {
+    if (!observerTarget) return;
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        const first = entries[0];
+        if (first.isIntersecting) {
+          setVisibleCount((prev) => prev + 24); // Load 3 more rows (24 images)
+        }
+      },
+      { threshold: 1 }
+    );
+
+    observer.observe(observerTarget);
+    return () => observer.disconnect(); // Cleanup
+  }, [observerTarget]);
+
   const categories = ["All", ...new Set(wallpapers.map((w) => w.category))];
   const filtered =
     selectedCategory === "All"
       ? wallpapers
       : wallpapers.filter((w) => w.category === selectedCategory);
 
+  // Animation Variants
+  const gridVariants = {
+    visible: {
+      transition: {
+        staggerChildren: 0.03,
+      },
+    },
+  };
+
+  const cardVariants = {
+    hidden: { opacity: 0, y: 20 },
+    visible: { opacity: 1, y: 0 },
+  };
+
   return (
     <main className="min-h-screen bg-gradient-to-br from-pink-200 via-yellow-100 to-blue-200 px-6 lg:px-[6rem] py-6">
       <h1 className="text-4xl font-bold text-center text-indigo-800 mb-6">
         Colorful Mobile Wallpapers
       </h1>
+
       {loading ? (
         <div className="flex justify-center items-center min-h-[60vh]">
           <div className="w-12 h-12 border-4 border-indigo-500 border-t-transparent rounded-full animate-spin"></div>
@@ -41,7 +78,10 @@ export default function Home() {
             {categories.map((category) => (
               <button
                 key={category}
-                onClick={() => setSelectedCategory(category)}
+                onClick={() => {
+                  setSelectedCategory(category);
+                  setVisibleCount(48); // reset scroll for new category
+                }}
                 className={`px-4 py-2 rounded-full font-semibold text-sm transition ${
                   selectedCategory === category
                     ? "bg-indigo-600 text-white"
@@ -53,26 +93,38 @@ export default function Home() {
             ))}
           </div>
 
-          {/* Wallpapers Grid */}
-          <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-8 gap-4">
-            {filtered.map((w) => (
-              <div
+          {/* Wallpapers Grid with animation */}
+          <motion.div
+            className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-8 gap-4"
+            variants={gridVariants}
+            initial="hidden"
+            animate="visible"
+          >
+            {filtered.slice(0, visibleCount).map((w) => (
+              <motion.div
+                layout
                 key={w._id}
-                onClick={() => setSelectedWallpaper(w)}
+                variants={cardVariants}
                 className="cursor-pointer rounded overflow-hidden shadow-md hover:scale-105 transition"
+                onClick={() => setSelectedWallpaper(w)}
               >
                 <img
                   src={w.image}
                   alt={w.title}
                   className="w-full aspect-[9/16] object-cover max-h-72"
                 />
-              </div>
+              </motion.div>
             ))}
-          </div>
+          </motion.div>
+
+          {/* Infinite Scroll Trigger Element */}
+          {visibleCount < filtered.length && (
+            <div ref={setObserverTarget} className="h-10 mt-6"></div>
+          )}
         </>
       )}
 
-      {/* Preview Modal */}
+      {/* Wallpaper Modal Preview */}
       {selectedWallpaper && (
         <WallpaperModal
           wallpaper={selectedWallpaper}
@@ -82,3 +134,5 @@ export default function Home() {
     </main>
   );
 }
+// This code is a Next.js page that displays a grid of colorful mobile wallpapers.
+// It fetches wallpapers from an API, allows filtering by category, and supports infinite scrolling.
