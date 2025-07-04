@@ -59,7 +59,7 @@ export default function Home() {
   };
 
   const cardVariants = {
-    hidden: { opacity: 0},
+    hidden: { opacity: 0 },
     visible: {
       opacity: 1,
       transition: { duration: 0.2, ease: "easeOut" },
@@ -69,12 +69,24 @@ export default function Home() {
   return (
     <main className="min-h-screen bg-gradient-to-br from-pink-200 via-yellow-100 to-blue-200 px-6 lg:px-[6rem] py-6">
       <div className="flex items-center gap-2 mb-4">
-        <Image src="/logo.png" alt="Logo" width={64} height={64} className="w-8 sm:w-16" />
+        <Image
+          src="/logo.png"
+          alt="Logo"
+          width={64}
+          height={64}
+          className="w-8 sm:w-16"
+        />
         <h1 className="font-michroma text-2xl lg:text-3xl font-bold text-gray-800 leading-6 ">
           Mogetzer
         </h1>
       </div>
-      
+      <div className="w-full flex item-center justify-center overflow-hidden rounded-lg shadow-lg mb-6">
+        <div
+          className="  
+                  animated-curved-border"
+        ></div>
+      </div>
+
       <h1 className="text-xl lg:text-4xl font-bold text-center text-indigo-800 mb-[2rem]">
         Colorful Mobile Wallpapers
       </h1>
@@ -110,7 +122,7 @@ export default function Home() {
           <motion.div
             key={selectedCategory} // Important: triggers re-animation on category change
             className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-8 gap-4"
-            variants={ gridVariants }
+            variants={gridVariants}
             initial="hidden"
             animate="visible"
           >
