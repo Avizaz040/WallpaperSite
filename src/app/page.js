@@ -68,7 +68,14 @@ export default function Home() {
 
   return (
     <main className="min-h-screen bg-gradient-to-br from-pink-200 via-yellow-100 to-blue-200 px-6 lg:px-[6rem] py-6">
-      <h1 className="text-4xl font-bold text-center text-indigo-800 mb-6">
+      <div className="flex items-center gap-2 mb-4">
+        <Image src="/logo.png" alt="Logo" width={64} height={64} />
+        <h1 className="font-michroma text-3xl font-bold text-gray-800 leading-6 ">
+          Mogetzer
+        </h1>
+      </div>
+      
+      <h1 className="text-4xl font-bold text-center text-indigo-800 mb-[2rem]">
         Colorful Mobile Wallpapers
       </h1>
 
