@@ -25,8 +25,8 @@ export default function HomePage() {
         ></div>
       </div>
       {/* Hero Section */}
-      <section className="flex flex-col items-center justify-center text-center py-20 px-6">
-        <h1 className="text-4xl sm:text-5xl font-bold mb-4">
+      <section className="flex flex-col items-center justify-center gap-[2rem] text-center py-20 px-6">
+        <h1 className="text-4xl sm:text-5xl font-bold font-sans mb-4">
           Stunning Mobile Wallpapers
         </h1>
         <p className="text-lg sm:text-xl max-w-xl mb-6">
@@ -53,7 +53,8 @@ export default function HomePage() {
           ].map((cat) => (
             <Link
               key={cat.name}
-              href={`/category/${cat.name.toLowerCase()}`}
+              // href={`/category/${cat.name.toLowerCase()}`}
+              href="/mobile_wallpapers"
               className="group relative rounded-xl overflow-hidden shadow-lg hover:scale-105 transition-transform duration-300"
             >
               <Image
