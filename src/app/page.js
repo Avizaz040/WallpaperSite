@@ -4,7 +4,7 @@ import Link from "next/link";
 
 export default function HomePage() {
   return (
-    <main className="min-h-screen text-white py-6 bg-gradient-to-b from-gray-800 to-gray-900">
+    <main className="min-h-screen text-white py-6 bg-gradient-to-br from-black via-teal-900 to-gray-900">
       {/* Header Section */}
       <div className="flex items-center gap-2 mb-4 px-6 lg:px-[6rem]">
         <Image

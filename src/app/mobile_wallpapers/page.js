@@ -68,20 +68,31 @@ export default function Home() {
   };
 
   return (
-    <main className="min-h-screen bg-gradient-to-br from-pink-200 via-yellow-100 to-blue-200 px-6 lg:px-[6rem] py-6">
-      <div className=" gap-2 mb-4">
-        <Link href="/" className="flex items-center gap-2">
+    <main className="min-h-screen bg-gradient-to-br from-black via-teal-900 to-gray-900 px-6 lg:px-[6rem] py-6">
+      <div className="flex justify-between items-center mb-4">
+        <Link
+          href="/"
+          className="flex items-center gap-2 mb-4 px-6 cursor-pointer hover:scale-105 transition-transform duration-300"
+        >
           <Image
             src="/logo.png"
             alt="Logo"
             width={64}
             height={64}
-            className="w-8 sm:w-16"
+            className="w-8 sm:w-16 invert"
           />
-          <h1 className="font-michroma text-2xl lg:text-3xl font-bold text-gray-800 leading-6 ">
+          <h1 className="font-michroma text-2xl lg:text-3xl font-bold text-gray-100 leading-6 ">
             Mogetzer
           </h1>
         </Link>
+
+        {/* Search Input */}
+        <input
+          type="text"
+          placeholder="Search wallpapers..."
+          className="px-4 py-2 w-full max-w-md rounded-md bg-gray-100 text-gray-800 focus:outline-none"
+          // onChange or onSubmit logic goes here
+        />
       </div>
       <div className="w-full flex item-center justify-center overflow-hidden rounded-lg shadow-lg mb-6">
         <div
