@@ -72,16 +72,16 @@ export default function Home() {
       <div className="flex justify-between items-center mb-4">
         <Link
           href="/"
-          className="flex items-center gap-2 mb-4 px-6 cursor-pointer hover:scale-105 transition-transform duration-300"
+          className="flex items-center gap-2 cursor-pointer hover:scale-105 transition-transform duration-300"
         >
           <Image
             src="/logo.png"
             alt="Logo"
             width={64}
             height={64}
-            className="w-8 sm:w-16 invert"
+            className="w-6 sm:w-16 invert"
           />
-          <h1 className="font-michroma text-2xl lg:text-3xl font-bold text-gray-100 leading-6 ">
+          <h1 className="font-michroma text-lg lg:text-3xl font-bold text-gray-100 leading-6 ">
             Mogetzer
           </h1>
         </Link>
@@ -90,7 +90,7 @@ export default function Home() {
         <input
           type="text"
           placeholder="Search wallpapers..."
-          className="px-4 py-2 w-full max-w-md rounded-md bg-gray-100 text-gray-800 focus:outline-none"
+          className="hidden lg:block px-4 py-2 w-full max-w-md rounded-md bg-gray-100 text-gray-800 focus:outline-none"
           // onChange or onSubmit logic goes here
         />
       </div>
