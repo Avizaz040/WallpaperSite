@@ -4,7 +4,7 @@ import Link from "next/link";
 
 export default function HomePage() {
   return (
-    <main className="min-h-screen text-white py-6 bg-gradient-to-br from-black via-teal-900 to-gray-900">
+    <main className="min-h-screen text-white pt-6 bg-gradient-to-br from-black via-teal-900 to-gray-900">
       {/* Header Section */}
       <div className="flex items-center gap-2 mb-4 px-6 lg:px-[6rem]">
         <Image
@@ -42,7 +42,7 @@ export default function HomePage() {
       </section>
 
       {/* Categories Section */}
-      <section className="py-16 px-6 bg-gray-800">
+      <section className="py-24 px-6 bg-black/15">
         <h2 className="text-3xl font-semibold text-center mb-12">Categories</h2>
         <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-6 max-w-6xl mx-auto">
           {[
@@ -73,7 +73,7 @@ export default function HomePage() {
       </section>
 
       {/* CTA Section */}
-      <section className="py-20 bg-gradient-to-t from-gray-800 to-gray-900 text-center">
+      <section className="py-20 bg-black/10 text-center">
         <h3 className="text-3xl font-semibold mb-4">
           Want to share your wallpapers?
         </h3>
