@@ -4,6 +4,7 @@ import { useState, useEffect } from "react";
 import Image from "next/image";
 import { motion } from "framer-motion";
 import WallpaperModal from "@/components/WallpaperModal";
+import Link from "next/link";
 
 export default function Home() {
   const [loading, setLoading] = useState(true);
@@ -68,17 +69,19 @@ export default function Home() {
 
   return (
     <main className="min-h-screen bg-gradient-to-br from-pink-200 via-yellow-100 to-blue-200 px-6 lg:px-[6rem] py-6">
-      <div className="flex items-center gap-2 mb-4">
-        <Image
-          src="/logo.png"
-          alt="Logo"
-          width={64}
-          height={64}
-          className="w-8 sm:w-16"
-        />
-        <h1 className="font-michroma text-2xl lg:text-3xl font-bold text-gray-800 leading-6 ">
-          Mogetzer
-        </h1>
+      <div className=" gap-2 mb-4">
+        <Link href="/" className="flex items-center gap-2">
+          <Image
+            src="/logo.png"
+            alt="Logo"
+            width={64}
+            height={64}
+            className="w-8 sm:w-16"
+          />
+          <h1 className="font-michroma text-2xl lg:text-3xl font-bold text-gray-800 leading-6 ">
+            Mogetzer
+          </h1>
+        </Link>
       </div>
       <div className="w-full flex item-center justify-center overflow-hidden rounded-lg shadow-lg mb-6">
         <div
