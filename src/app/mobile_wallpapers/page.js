@@ -101,14 +101,14 @@ export default function Home() {
         ></div>
       </div>
 
-      <h1 className="text-xl lg:text-4xl font-bold text-center text-indigo-800 mb-[2rem]">
+      <h1 className="text-xl lg:text-4xl font-bold text-center text-slate-300 mb-[2rem]">
         Colorful Mobile Wallpapers
       </h1>
 
       {loading ? (
         <div className="flex justify-center items-center min-h-[60vh]">
-          <div className="w-12 h-12 border-4 border-indigo-500 border-t-transparent rounded-full animate-spin"></div>
-          <span className="ml-4 text-indigo-600">Loading wallpapers...</span>
+          <div className="w-12 h-12 border-4 border-slate-200 border-t-transparent rounded-full animate-spin"></div>
+          <span className="ml-4 text-slate-200">Loading wallpapers...</span>
         </div>
       ) : (
         <>
