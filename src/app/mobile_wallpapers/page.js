@@ -5,6 +5,7 @@ import Image from "next/image";
 import { motion } from "framer-motion";
 import WallpaperModal from "@/components/WallpaperModal";
 import Link from "next/link";
+import { AnimatePresence } from "framer-motion";
 
 export default function Home() {
   const [loading, setLoading] = useState(true);
@@ -169,12 +170,22 @@ export default function Home() {
       )}
 
       {/* Wallpaper Modal Preview */}
-      {selectedWallpaper && (
-        <WallpaperModal
-          wallpaper={selectedWallpaper}
-          onClose={() => setSelectedWallpaper(null)}
-        />
-      )}
+      <AnimatePresence>
+        {selectedWallpaper && (
+          <motion.div
+            initial={{ opacity: 0, scale: 0.95 }}
+            animate={{ opacity: 1, scale: 1 }}
+            exit={{ opacity: 0, scale: 0.95 }}
+            transition={{ duration: 0.3, ease: "easeOut" }}
+            className="fixed inset-0 z-50 flex items-center justify-center bg-black/20"
+          >
+            <WallpaperModal
+              wallpaper={selectedWallpaper}
+              onClose={() => setSelectedWallpaper(null)}
+            />
+          </motion.div>
+        )}
+      </AnimatePresence>
     </main>
   );
 }
