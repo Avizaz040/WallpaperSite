@@ -6,7 +6,7 @@ import { motion } from "framer-motion";
 import WallpaperModal from "@/components/WallpaperModal";
 import Link from "next/link";
 import { AnimatePresence } from "framer-motion";
-import { LucideSearch } from "lucide-react";
+import { LucideSearch, LucideX } from "lucide-react";
 
 export default function Home() {
   const [loading, setLoading] = useState(true);
@@ -16,7 +16,7 @@ export default function Home() {
   const [visibleCount, setVisibleCount] = useState(48); // initial: 6 rows * 8 columns
   const [observerTarget, setObserverTarget] = useState(null);
   const [searchQuery, setSearchQuery] = useState(""); // Add state for search input
-  const [hideSearch, setHideSearch] = useState(false); // State to toggle search input visibility
+  const [showSearch, setShowSearch] = useState(false); // State to toggle search input visibility
 
   // Fetch wallpapers
   useEffect(() => {
@@ -50,14 +50,13 @@ export default function Home() {
   // Filter wallpapers based on selected category
   // If searchQuery is not empty, filter by title as well
   const categoryFiltered =
-  selectedCategory === "All"
-    ? wallpapers
-    : wallpapers.filter((w) => w.category === selectedCategory);
+    selectedCategory === "All"
+      ? wallpapers
+      : wallpapers.filter((w) => w.category === selectedCategory);
 
-const filtered = categoryFiltered.filter((w) =>
-  w.title.toLowerCase().includes(searchQuery.toLowerCase())
-);
-
+  const filtered = categoryFiltered.filter((w) =>
+    w.title.toLowerCase().includes(searchQuery.toLowerCase())
+  );
 
   // Animation Variants
   const gridVariants = {
@@ -80,10 +79,10 @@ const filtered = categoryFiltered.filter((w) =>
 
   return (
     <main className="min-h-screen bg-gradient-to-br from-black via-teal-900 to-gray-900 px-6 lg:px-[6rem] py-6">
-      <div className="relative flex justify-between items-center mb-4">
+      <div className="relative flex justify-between items-center mb-2">
         <Link
           href="/"
-          className="flex items-center gap-2 cursor-pointer hover:scale-105 transition-transform duration-300"
+          className="flex items-center gap-2 cursor-pointer hover:scale-105 transition-transform duration-300 py-4"
         >
           <Image
             src="/logo.png"
@@ -92,21 +91,50 @@ const filtered = categoryFiltered.filter((w) =>
             height={64}
             className="w-6 sm:w-16 invert"
           />
-          <h1 className={`font-michroma text-lg lg:text-3xl font-bold text-gray-100 leading-6 ${hideSearch ? "hidden" : ""}`}>
+          <h1
+            className={`font-michroma text-lg lg:text-3xl font-bold text-gray-100 leading-6 ${
+              showSearch ? "hidden" : ""
+            }`}
+          >
             Mogetzer
           </h1>
         </Link>
-        <LucideSearch className={`lg:hidden absolute right-2 ${hideSearch ? "text-black" : "text-white"}`} onClick={() => setHideSearch(!hideSearch)} />
-        {/* Search Input */}
-        <input
-          type="text"
-          placeholder="Search wallpapers..."
-          value= {searchQuery} // Add state for search input
-          onChange={(e) => setSearchQuery(e.target.value)}
-          // Add search functionality here if needed
-          className={`${!hideSearch ? "hidden":""} lg:block px-4 py-2 w-[85%] max-w-md rounded-md bg-gray-100 text-gray-800 focus:outline-none ml-2`}
-          // onChange or onSubmit logic goes here
+
+        {/* Search Icon */}
+        <LucideSearch
+          className={`lg:hidden text-white absolute right-4 top-1/2 -translate-y-1/2 z-20 cursor-pointer ${
+            !showSearch ? "block" : "hidden"
+          }`}
+          onClick={() => setShowSearch(true)}
         />
+
+        {/* Cross Icon */}
+        <LucideX
+          className={`lg:hidden text-black absolute right-4 top-1/2 -translate-y-1/2 z-20 cursor-pointer ${
+            showSearch ? "block" : "hidden"
+          }`}
+          onClick={() => setShowSearch(false)}
+        />
+        <AnimatePresence>
+          {showSearch && (
+            // Search Input
+            <motion.div
+              initial={{ width: 0, opacity: 0 }}
+              animate={{ width: "85%", opacity: 1 }}
+              exit={{ width: 0, opacity: 0 }}
+              transition={{ duration: 0.3, ease: "easeInOut" }}
+              // className="overflow-hidden"
+            >
+              <input
+                type="text"
+                placeholder="Search wallpapers..."
+                value={searchQuery}
+                onChange={(e) => setSearchQuery(e.target.value)}
+                className="lg:block px-2 py-1 lg:py-2 w-full max-w-md rounded-md bg-gray-100 text-gray-800 focus:outline-none"
+              />
+            </motion.div>
+          )}
+        </AnimatePresence>
       </div>
       <div className="w-full flex item-center justify-center overflow-hidden rounded-lg shadow-lg mb-6">
         <div
