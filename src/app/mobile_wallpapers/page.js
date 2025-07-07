@@ -6,6 +6,7 @@ import { motion } from "framer-motion";
 import WallpaperModal from "@/components/WallpaperModal";
 import Link from "next/link";
 import { AnimatePresence } from "framer-motion";
+import { LucideSearch } from "lucide-react";
 
 export default function Home() {
   const [loading, setLoading] = useState(true);
@@ -14,6 +15,8 @@ export default function Home() {
   const [selectedWallpaper, setSelectedWallpaper] = useState(null);
   const [visibleCount, setVisibleCount] = useState(48); // initial: 6 rows * 8 columns
   const [observerTarget, setObserverTarget] = useState(null);
+  const [searchQuery, setSearchQuery] = useState(""); // Add state for search input
+  const [hideSearch, setHideSearch] = useState(false); // State to toggle search input visibility
 
   // Fetch wallpapers
   useEffect(() => {
@@ -44,10 +47,17 @@ export default function Home() {
   }, [observerTarget]);
 
   const categories = ["All", ...new Set(wallpapers.map((w) => w.category))];
-  const filtered =
-    selectedCategory === "All"
-      ? wallpapers
-      : wallpapers.filter((w) => w.category === selectedCategory);
+  // Filter wallpapers based on selected category
+  // If searchQuery is not empty, filter by title as well
+  const categoryFiltered =
+  selectedCategory === "All"
+    ? wallpapers
+    : wallpapers.filter((w) => w.category === selectedCategory);
+
+const filtered = categoryFiltered.filter((w) =>
+  w.title.toLowerCase().includes(searchQuery.toLowerCase())
+);
+
 
   // Animation Variants
   const gridVariants = {
@@ -70,7 +80,7 @@ export default function Home() {
 
   return (
     <main className="min-h-screen bg-gradient-to-br from-black via-teal-900 to-gray-900 px-6 lg:px-[6rem] py-6">
-      <div className="flex justify-between items-center mb-4">
+      <div className="relative flex justify-between items-center mb-4">
         <Link
           href="/"
           className="flex items-center gap-2 cursor-pointer hover:scale-105 transition-transform duration-300"
@@ -82,16 +92,19 @@ export default function Home() {
             height={64}
             className="w-6 sm:w-16 invert"
           />
-          <h1 className="font-michroma text-lg lg:text-3xl font-bold text-gray-100 leading-6 ">
+          <h1 className={`font-michroma text-lg lg:text-3xl font-bold text-gray-100 leading-6 ${hideSearch ? "hidden" : ""}`}>
             Mogetzer
           </h1>
         </Link>
-
+        <LucideSearch className={`lg:hidden absolute right-2 ${hideSearch ? "text-black" : "text-white"}`} onClick={() => setHideSearch(!hideSearch)} />
         {/* Search Input */}
         <input
           type="text"
           placeholder="Search wallpapers..."
-          className="hidden lg:block px-4 py-2 w-full max-w-md rounded-md bg-gray-100 text-gray-800 focus:outline-none"
+          value= {searchQuery} // Add state for search input
+          onChange={(e) => setSearchQuery(e.target.value)}
+          // Add search functionality here if needed
+          className={`${!hideSearch ? "hidden":""} lg:block px-4 py-2 w-[85%] max-w-md rounded-md bg-gray-100 text-gray-800 focus:outline-none ml-2`}
           // onChange or onSubmit logic goes here
         />
       </div>
