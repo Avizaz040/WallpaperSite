@@ -24,11 +24,13 @@ export default function WallpaperModal({ wallpaper, onClose }) {
             <p className="text-indigo-700 mt-2">Loading...</p>
           </div>
         )}
-
-        {/* Title */}
-        <h2 className="text-xl font-semibold text-indigo-700 text-center">
-          {wallpaper.title}
-        </h2>
+        <div className="w-full flex items-center justify-between gap-4">
+          {/* Title */}
+          <h2 className="text-xl font-semibold text-indigo-700 text-center">
+            {wallpaper.title}
+          </h2>
+          <button className="bg-blue-600 text-white text-sm cursor-pointer px-2 py-1 rounded" onClick={onClose}>Back</button>
+        </div>
 
         {/* Image */}
         <div className="max-h-[60vh] lg:max-h-[80vh] rounded">
