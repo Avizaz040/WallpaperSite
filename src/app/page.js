@@ -1,12 +1,14 @@
 // src/app/page.tsx
 import Image from "next/image";
 import Link from "next/link";
+import Navbar from "@/components/Navbar";
 
 export default function HomePage() {
   return (
-    <main className="min-h-screen text-white pt-6 bg-gradient-to-br from-black via-teal-900 to-gray-900">
+    <main className="min-h-screen px-6 lg:px-[6rem] text-white py-4 bg-gradient-to-br from-black via-teal-900 to-gray-900">
+      <Navbar />
       {/* Header Section */}
-      <div className="flex items-center gap-2 mb-4 px-6 lg:px-[6rem]">
+      {/* <div className="flex items-center gap-2 mb-4 px-6 lg:px-[6rem] py-4">
         <Image
           src="/logo.png"
           alt="Logo"
@@ -23,9 +25,9 @@ export default function HomePage() {
           className="  
                         animated-curved-border"
         ></div>
-      </div>
+      </div> */}
       {/* Hero Section */}
-      <section className="flex flex-col items-center justify-center gap-[2rem] text-center py-20 px-6">
+      <section className="flex flex-col items-center justify-center gap-[2rem] bg-black/10 text-center py-20 px-6">
         <h1 className="text-4xl sm:text-5xl font-bold font-sans mb-4">
           Stunning Mobile Wallpapers
         </h1>

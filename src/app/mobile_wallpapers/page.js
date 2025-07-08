@@ -78,7 +78,7 @@ export default function Home() {
   };
 
   return (
-    <main className="min-h-screen bg-gradient-to-br from-black via-teal-900 to-gray-900 px-6 lg:px-[6rem] py-6">
+    <main className="min-h-screen bg-gradient-to-br from-black via-teal-900 to-gray-900 px-6 lg:px-[6rem] py-4">
       <div className="relative flex justify-between items-center mb-2">
         <Link
           href="/"
@@ -89,17 +89,25 @@ export default function Home() {
             alt="Logo"
             width={64}
             height={64}
-            className="w-6 sm:w-16 invert"
+            className="w-6 sm:w-16 invert py-1"
           />
-          <h1
-            className={`font-michroma text-lg lg:text-3xl font-bold text-gray-100 leading-6 ${
-              showSearch ? "hidden" : ""
-            }`}
-          >
-            Mogetzer
-          </h1>
+          <div>
+            <h1
+              className={`font-michroma text-lg sm:text-xl lg:text-3xl font-bold text-gray-100 leading-6 ${
+                showSearch ? "hidden" : " "
+              }`}
+            >
+              Mogetzer
+            </h1>
+          </div>
         </Link>
-
+        <input
+          type="text"
+          placeholder="Search wallpapers..."
+          value={searchQuery}
+          onChange={(e) => setSearchQuery(e.target.value)}
+          className="hidden lg:block px-2 py-1 lg:py-2 w-full max-w-md rounded-md bg-gray-100 text-gray-800 focus:outline-none"
+        />
         {/* Search Icon */}
         <LucideSearch
           className={`lg:hidden text-white absolute right-4 top-1/2 -translate-y-1/2 z-20 cursor-pointer ${
@@ -123,14 +131,14 @@ export default function Home() {
               animate={{ width: "85%", opacity: 1 }}
               exit={{ width: 0, opacity: 0 }}
               transition={{ duration: 0.3, ease: "easeInOut" }}
-              // className="overflow-hidden"
+              className="overflow-hidden text-right"
             >
               <input
                 type="text"
                 placeholder="Search wallpapers..."
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
-                className="lg:block px-2 py-1 lg:py-2 w-full max-w-md rounded-md bg-gray-100 text-gray-800 focus:outline-none"
+                className="px-2 py-1  w-full max-w-md rounded-md bg-gray-100 text-gray-800 focus:outline-none"
               />
             </motion.div>
           )}
