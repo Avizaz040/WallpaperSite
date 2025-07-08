@@ -14,7 +14,7 @@ function Navbar() {
             alt="Logo"
             width={64}
             height={64}
-            className="w-6 sm:w-16 invert"
+            className="w-6 sm:w-16 invert py-1"
           />
           <h1
             className="font-michroma text-lg lg:text-3xl font-bold text-white leading-6"
