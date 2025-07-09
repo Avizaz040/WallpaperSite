@@ -15,7 +15,7 @@ export default function WallpaperModal({ wallpaper, onClose }) {
       {/* Modal content wrapper */}
       <div
         onClick={(e) => e.stopPropagation()}
-        className="relative bg-white p-4 rounded-lg shadow-lg max-w-md px-4 flex flex-col items-center gap-4"
+        className="relative backdrop-blur-md bg-white/10 border border-white/20 rounded-lg shadow-xl max-w-md px-4 py-4 flex flex-col items-center gap-4"
       >
         {/* Spinner Overlay */}
         {isImageLoading && (

@@ -171,10 +171,10 @@ export default function Home() {
                   setSelectedCategory(category);
                   setVisibleCount(48); // reset scroll for new category
                 }}
-                className={`px-4 py-1 lg:px-4 lg:py-2 lg:rounded-full font-semibold text-sm transition rounded ${
+                className={`px-4 py-1 lg:px-4 lg:py-2 lg:rounded-full font-semibold text-sm transition rounded cursor-pointer ${
                   selectedCategory === category
                     ? "bg-indigo-600 text-white"
-                    : "bg-black/20 text-indigo-200 border border-indigo-300"
+                    : "bg-black/20 lg:bg-white text-indigo-200 lg:text-indigo-600 border border-indigo-300"
                 }`}
               >
                 {category}
