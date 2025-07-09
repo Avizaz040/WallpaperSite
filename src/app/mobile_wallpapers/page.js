@@ -163,7 +163,7 @@ export default function Home() {
       ) : (
         <>
           {/* Category Buttons */}
-          <div className="flex flex-wrap justify-center gap-3 mb-6">
+          <div className="flex lg:flex-wrap justify-start lg:justify-center whitespace-nowrap gap-3 mb-6 overflow-x-auto scrollbar-hide lg:overflow-visible">
             {categories.map((category) => (
               <button
                 key={category}
@@ -171,10 +171,10 @@ export default function Home() {
                   setSelectedCategory(category);
                   setVisibleCount(48); // reset scroll for new category
                 }}
-                className={`px-4 py-2 rounded-full font-semibold text-sm transition ${
+                className={`px-4 py-1 lg:px-4 lg:py-2 lg:rounded-full font-semibold text-sm transition rounded ${
                   selectedCategory === category
                     ? "bg-indigo-600 text-white"
-                    : "bg-white text-indigo-600 border border-indigo-300"
+                    : "bg-black/20 text-indigo-200 border border-indigo-300"
                 }`}
               >
                 {category}
@@ -185,7 +185,7 @@ export default function Home() {
           {/* Wallpapers Grid with animation */}
           <motion.div
             key={selectedCategory} // Important: triggers re-animation on category change
-            className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-8 gap-4"
+            className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-8 gap-4"
             variants={gridVariants}
             initial="hidden"
             animate="visible"
