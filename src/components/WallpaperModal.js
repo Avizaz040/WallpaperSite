@@ -29,7 +29,7 @@ export default function WallpaperModal({ wallpaper, onClose }) {
           <h2 className="text-xl font-semibold text-white text-center">
             {wallpaper.title}
           </h2>
-          <button className="bg-blue-600 text-white text-sm cursor-pointer px-2 py-1 rounded" onClick={onClose}>Back</button>
+          <button className="bg-black/40 text-white border border-white/20 py-1 px-2 rounded hover:bg-gray-500 transition cursor-pointer" onClick={onClose}>Back</button>
         </div>
 
         {/* Image */}
@@ -53,7 +53,7 @@ export default function WallpaperModal({ wallpaper, onClose }) {
         <Link
           href={`/api/download?url=${encodeURIComponent(wallpaper.image)}`}
           download
-          className="bg-indigo-600 text-white py-2 px-4 rounded hover:bg-indigo-700 transition"
+          className="bg-black/40 text-white border border-white/20 py-2 px-4 rounded hover:bg-gray-500 transition"
         >
           Download
         </Link>
