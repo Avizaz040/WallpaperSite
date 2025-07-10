@@ -17,7 +17,7 @@ export default function Home() {
   const [selectedWallpaper, setSelectedWallpaper] = useState(null);
   const [visibleCount, setVisibleCount] = useState(48); // Number of wallpapers to show initially
   const [observerTarget, setObserverTarget] = useState(null); // Ref for infinite scroll
-  const { searchQuery } = useSearch();
+  const { searchQuery, setSearchQuery } = useSearch();
 
   // Fetch wallpapers from API on mount
   useEffect(() => {
@@ -108,6 +108,7 @@ export default function Home() {
                 onClick={() => {
                   setSelectedCategory(category);
                   setVisibleCount(48); // Reset visible count on category change
+                  setSearchQuery(""); // Clear search query when changing category
                 }}
                 className={`px-4 py-1 lg:px-4 lg:py-2 lg:rounded-full font-semibold text-sm transition rounded cursor-pointer ${
                   selectedCategory === category

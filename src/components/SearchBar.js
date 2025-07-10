@@ -27,7 +27,7 @@ export default function SearchBar({ searchQuery, setSearchQuery, showSearch, set
           className={`lg:hidden text-black absolute right-4 top-1/2 -translate-y-1/2 z-20 cursor-pointer ${
             showSearch ? "block" : "hidden"
           }`}
-          onClick={() => setShowSearch(false)}
+          onClick={() => { setShowSearch(false); setSearchQuery(""); }} // Clear search query when closing
         />
         {/* Animated mobile search input */}
         <AnimatePresence>
