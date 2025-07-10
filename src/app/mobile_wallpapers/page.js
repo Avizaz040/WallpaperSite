@@ -1,4 +1,4 @@
-"use client";
+"use client"; // Enables client-side rendering for this page
 
 import { useState, useEffect } from "react";
 import Image from "next/image";
@@ -8,17 +8,19 @@ import Link from "next/link";
 import { AnimatePresence } from "framer-motion";
 import { LucideSearch, LucideX } from "lucide-react";
 
+// Main component for displaying mobile wallpapers
 export default function Home() {
+  // State variables for loading, wallpapers, category, modal, infinite scroll, and search
   const [loading, setLoading] = useState(true);
   const [wallpapers, setWallpapers] = useState([]);
   const [selectedCategory, setSelectedCategory] = useState("All");
   const [selectedWallpaper, setSelectedWallpaper] = useState(null);
-  const [visibleCount, setVisibleCount] = useState(48); // initial: 6 rows * 8 columns
-  const [observerTarget, setObserverTarget] = useState(null);
-  const [searchQuery, setSearchQuery] = useState(""); // Add state for search input
-  const [showSearch, setShowSearch] = useState(false); // State to toggle search input visibility
+  const [visibleCount, setVisibleCount] = useState(48); // Number of wallpapers to show initially
+  const [observerTarget, setObserverTarget] = useState(null); // Ref for infinite scroll
+  const [searchQuery, setSearchQuery] = useState(""); // Search input state
+  const [showSearch, setShowSearch] = useState(false); // Toggle for mobile search input
 
-  // Fetch wallpapers
+  // Fetch wallpapers from API on mount
   useEffect(() => {
     fetch("/api/wallpapers")
       .then((res) => res.json())
@@ -28,7 +30,7 @@ export default function Home() {
       });
   }, []);
 
-  // IntersectionObserver for infinite scroll
+  // Infinite scroll: load more wallpapers when observerTarget is visible
   useEffect(() => {
     if (!observerTarget) return;
 
@@ -36,35 +38,37 @@ export default function Home() {
       (entries) => {
         const first = entries[0];
         if (first.isIntersecting) {
-          setVisibleCount((prev) => prev + 24); // Load 3 more rows (24 images)
+          setVisibleCount((prev) => prev + 24); // Load more wallpapers
         }
       },
       { threshold: 1 }
     );
 
     observer.observe(observerTarget);
-    return () => observer.disconnect(); // Cleanup
+    return () => observer.disconnect(); // Cleanup observer on unmount
   }, [observerTarget]);
 
+  // Generate unique categories from wallpapers
   const categories = ["All", ...new Set(wallpapers.map((w) => w.category))];
-  // Filter wallpapers based on selected category
-  // If searchQuery is not empty, filter by title as well
+
+  // Filter wallpapers by selected category
   const categoryFiltered =
     selectedCategory === "All"
       ? wallpapers
       : wallpapers.filter((w) => w.category === selectedCategory);
 
+  // Further filter wallpapers by search query (title)
   const filtered = categoryFiltered.filter((w) =>
     w.title.toLowerCase().includes(searchQuery.toLowerCase())
   );
 
-  // Animation Variants
+  // Animation variants for grid and cards
   const gridVariants = {
     hidden: {},
     visible: {
       transition: {
-        staggerChildren: 0.05, // Delay between each child
-        delayChildren: 0.4, // Initial delay before first child animates
+        staggerChildren: 0.05,
+        delayChildren: 0.4,
       },
     },
   };
@@ -78,8 +82,11 @@ export default function Home() {
   };
 
   return (
+    // Main container with gradient background
     <main className="min-h-screen bg-gradient-to-br from-black via-teal-900 to-gray-900 px-6 lg:px-[6rem] py-4">
+      {/* Header: Logo, title, and search bar */}
       <div className="relative flex justify-between items-center mb-2">
+        {/* Logo and site title */}
         <Link
           href="/"
           className="flex items-center gap-2 cursor-pointer hover:scale-105 transition-transform duration-300 py-4"
@@ -101,6 +108,7 @@ export default function Home() {
             </h1>
           </div>
         </Link>
+        {/* Desktop search input */}
         <input
           type="text"
           placeholder="Search wallpapers..."
@@ -108,7 +116,7 @@ export default function Home() {
           onChange={(e) => setSearchQuery(e.target.value)}
           className="hidden lg:block px-2 py-1 lg:py-2 w-full max-w-md rounded-md bg-gray-100 text-gray-800 focus:outline-none"
         />
-        {/* Search Icon */}
+        {/* Mobile search icon */}
         <LucideSearch
           className={`lg:hidden text-white absolute right-4 top-1/2 -translate-y-1/2 z-20 cursor-pointer ${
             !showSearch ? "block" : "hidden"
@@ -116,16 +124,16 @@ export default function Home() {
           onClick={() => setShowSearch(true)}
         />
 
-        {/* Cross Icon */}
+        {/* Mobile close (X) icon */}
         <LucideX
           className={`lg:hidden text-black absolute right-4 top-1/2 -translate-y-1/2 z-20 cursor-pointer ${
             showSearch ? "block" : "hidden"
           }`}
           onClick={() => setShowSearch(false)}
         />
+        {/* Animated mobile search input */}
         <AnimatePresence>
           {showSearch && (
-            // Search Input
             <motion.div
               initial={{ width: 0, opacity: 0 }}
               animate={{ width: "85%", opacity: 1 }}
@@ -144,17 +152,17 @@ export default function Home() {
           )}
         </AnimatePresence>
       </div>
+      {/* Decorative border below header */}
       <div className="w-full flex item-center justify-center overflow-hidden rounded-lg shadow-lg mb-6">
-        <div
-          className="  
-                  animated-curved-border"
-        ></div>
+        <div className="animated-curved-border"></div>
       </div>
 
+      {/* Page title */}
       <h1 className="text-xl lg:text-4xl font-bold text-center text-slate-300 mb-[2rem]">
         Colorful Mobile Wallpapers
       </h1>
 
+      {/* Loading spinner */}
       {loading ? (
         <div className="flex justify-center items-center min-h-[60vh]">
           <div className="w-12 h-12 border-4 border-slate-200 border-t-transparent rounded-full animate-spin"></div>
@@ -162,14 +170,14 @@ export default function Home() {
         </div>
       ) : (
         <>
-          {/* Category Buttons */}
+          {/* Category filter buttons */}
           <div className="flex lg:flex-wrap justify-start lg:justify-center whitespace-nowrap gap-3 mb-6 overflow-x-auto scrollbar-hide lg:overflow-visible">
             {categories.map((category) => (
               <button
                 key={category}
                 onClick={() => {
                   setSelectedCategory(category);
-                  setVisibleCount(48); // reset scroll for new category
+                  setVisibleCount(48); // Reset visible count on category change
                 }}
                 className={`px-4 py-1 lg:px-4 lg:py-2 lg:rounded-full font-semibold text-sm transition rounded cursor-pointer ${
                   selectedCategory === category
@@ -182,9 +190,9 @@ export default function Home() {
             ))}
           </div>
 
-          {/* Wallpapers Grid with animation */}
+          {/* Wallpapers grid with animation */}
           <motion.div
-            key={selectedCategory} // Important: triggers re-animation on category change
+            key={selectedCategory}
             className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-8 gap-4"
             variants={gridVariants}
             initial="hidden"
@@ -211,14 +219,14 @@ export default function Home() {
             ))}
           </motion.div>
 
-          {/* Infinite Scroll Trigger Element */}
+          {/* Infinite scroll trigger element */}
           {visibleCount < filtered.length && (
             <div ref={setObserverTarget} className="h-10 mt-6"></div>
           )}
         </>
       )}
 
-      {/* Wallpaper Modal Preview */}
+      {/* Modal for wallpaper preview */}
       <AnimatePresence>
         {selectedWallpaper && (
           <motion.div
@@ -238,5 +246,5 @@ export default function Home() {
     </main>
   );
 }
-// This code is a Next.js page that displays a grid of colorful mobile wallpapers.
-// It fetches wallpapers from an API, allows filtering by category, and supports infinite scrolling.
+
+// This component fetches and displays a grid of wallpapers with category filtering, search, infinite scroll, and modal preview functionality.
