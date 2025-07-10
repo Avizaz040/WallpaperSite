@@ -57,7 +57,7 @@ function WallpaperPage_Navbar() {
         />
       </div>
       {/* Decorative border below header */}
-      <div className="w-full flex item-center justify-center overflow-hidden rounded-lg shadow-lg mb-6">
+      <div className="w-full flex item-center justify-center overflow-hidden rounded-lg shadow-lg lg:mb-6">
         <div className="animated-curved-border"></div>
       </div>
     </nav>

@@ -17,7 +17,7 @@ export default function Home() {
   const [selectedWallpaper, setSelectedWallpaper] = useState(null);
   const [visibleCount, setVisibleCount] = useState(48); // Number of wallpapers to show initially
   const [observerTarget, setObserverTarget] = useState(null); // Ref for infinite scroll
-  const { searchQuery, setSearchQuery, showSearch, setShowSearch } = useSearch();
+  const { searchQuery } = useSearch();
 
   // Fetch wallpapers from API on mount
   useEffect(() => {
