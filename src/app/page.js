@@ -68,7 +68,7 @@ export default function HomePage() {
       </section>
 
       {/* Call-to-Action Section: Invite users to upload wallpapers */}
-      <section className="py-16 bg-black/10 text-center shadow-2xl lg:m-[6rem]">
+      <section className="my-[6rem] py-16 bg-black/10 text-center shadow-2xl lg:m-[6rem]">
         <h3 className="text-3xl font-semibold mb-4">
           Want to share your wallpapers?
         </h3>
@@ -83,6 +83,7 @@ export default function HomePage() {
           Upload Now
         </Link>
       </section>
+      <div className="py-[1rem]"></div>
     </main>
   );
 }
