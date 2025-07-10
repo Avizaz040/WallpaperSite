@@ -4,9 +4,9 @@ import { useState, useEffect } from "react";
 import Image from "next/image";
 import { motion } from "framer-motion";
 import WallpaperModal from "@/components/WallpaperModal";
-import Link from "next/link";
 import { AnimatePresence } from "framer-motion";
-import { LucideSearch, LucideX } from "lucide-react";
+import WallpaperPage_Navbar from "@/components/WallpaperPage_Navbar";
+import { useSearch } from "@/contextApi/SearchContext";
 
 // Main component for displaying mobile wallpapers
 export default function Home() {
@@ -17,8 +17,7 @@ export default function Home() {
   const [selectedWallpaper, setSelectedWallpaper] = useState(null);
   const [visibleCount, setVisibleCount] = useState(48); // Number of wallpapers to show initially
   const [observerTarget, setObserverTarget] = useState(null); // Ref for infinite scroll
-  const [searchQuery, setSearchQuery] = useState(""); // Search input state
-  const [showSearch, setShowSearch] = useState(false); // Toggle for mobile search input
+  const { searchQuery, setSearchQuery, showSearch, setShowSearch } = useSearch();
 
   // Fetch wallpapers from API on mount
   useEffect(() => {
@@ -83,86 +82,17 @@ export default function Home() {
 
   return (
     // Main container with gradient background
-    <main className="min-h-screen bg-gradient-to-br from-black via-teal-900 to-gray-900 px-6 lg:px-[6rem] py-4">
-      {/* Header: Logo, title, and search bar */}
-      <div className="relative flex justify-between items-center mb-2">
-        {/* Logo and site title */}
-        <Link
-          href="/"
-          className="flex items-center gap-2 cursor-pointer hover:scale-105 transition-transform duration-300 py-4"
-        >
-          <Image
-            src="/logo.png"
-            alt="Logo"
-            width={64}
-            height={64}
-            className="w-6 sm:w-16 invert py-1"
-          />
-          <div>
-            <h1
-              className={`font-michroma text-lg sm:text-xl lg:text-3xl font-bold text-gray-100 leading-6 ${
-                showSearch ? "hidden" : " "
-              }`}
-            >
-              Mogetzer
-            </h1>
-          </div>
-        </Link>
-        {/* Desktop search input */}
-        <input
-          type="text"
-          placeholder="Search wallpapers..."
-          value={searchQuery}
-          onChange={(e) => setSearchQuery(e.target.value)}
-          className="hidden lg:block px-2 py-1 lg:py-2 w-full max-w-md rounded-md bg-gray-100 text-gray-800 focus:outline-none"
-        />
-        {/* Mobile search icon */}
-        <LucideSearch
-          className={`lg:hidden text-white absolute right-4 top-1/2 -translate-y-1/2 z-20 cursor-pointer ${
-            !showSearch ? "block" : "hidden"
-          }`}
-          onClick={() => setShowSearch(true)}
-        />
+    <main className="min-h-screen bg-gradient-to-br from-black via-teal-900 to-gray-900 px-6 lg:px-[6rem] py-[8rem] lg:py-[12rem]">
 
-        {/* Mobile close (X) icon */}
-        <LucideX
-          className={`lg:hidden text-black absolute right-4 top-1/2 -translate-y-1/2 z-20 cursor-pointer ${
-            showSearch ? "block" : "hidden"
-          }`}
-          onClick={() => setShowSearch(false)}
-        />
-        {/* Animated mobile search input */}
-        <AnimatePresence>
-          {showSearch && (
-            <motion.div
-              initial={{ width: 0, opacity: 0 }}
-              animate={{ width: "85%", opacity: 1 }}
-              exit={{ width: 0, opacity: 0 }}
-              transition={{ duration: 0.3, ease: "easeInOut" }}
-              className="overflow-hidden text-right"
-            >
-              <input
-                type="text"
-                placeholder="Search wallpapers..."
-                value={searchQuery}
-                onChange={(e) => setSearchQuery(e.target.value)}
-                className="px-2 py-1  w-full max-w-md rounded-md bg-gray-100 text-gray-800 focus:outline-none"
-              />
-            </motion.div>
-          )}
-        </AnimatePresence>
-      </div>
-      {/* Decorative border below header */}
-      <div className="w-full flex item-center justify-center overflow-hidden rounded-lg shadow-lg mb-6">
-        <div className="animated-curved-border"></div>
-      </div>
+      {/*====================================== Header: Logo, title, and search bar ========================================*/}
+      <WallpaperPage_Navbar />
 
-      {/* Page title */}
+      {/*===================================================== Page title ===================================================*/}
       <h1 className="text-xl lg:text-4xl font-bold text-center text-slate-300 mb-[2rem]">
         Colorful Mobile Wallpapers
       </h1>
 
-      {/* Loading spinner */}
+      {/*-------------------------------------------------- Loading spinner -------------------------------------------------*/}
       {loading ? (
         <div className="flex justify-center items-center min-h-[60vh]">
           <div className="w-12 h-12 border-4 border-slate-200 border-t-transparent rounded-full animate-spin"></div>
@@ -170,7 +100,7 @@ export default function Home() {
         </div>
       ) : (
         <>
-          {/* Category filter buttons */}
+          {/*------------------------------------------- Category filter buttons --------------------------------------------*/}
           <div className="flex lg:flex-wrap justify-start lg:justify-center whitespace-nowrap gap-3 mb-6 overflow-x-auto scrollbar-hide lg:overflow-visible">
             {categories.map((category) => (
               <button
@@ -190,7 +120,7 @@ export default function Home() {
             ))}
           </div>
 
-          {/* Wallpapers grid with animation */}
+          {/*========================================== Wallpapers grid with animation ========================================*/}
           <motion.div
             key={selectedCategory}
             className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-8 gap-4"
@@ -219,14 +149,14 @@ export default function Home() {
             ))}
           </motion.div>
 
-          {/* Infinite scroll trigger element */}
+          {/*------------------------------------------ Infinite scroll trigger element ----------------------------------*/}
           {visibleCount < filtered.length && (
             <div ref={setObserverTarget} className="h-10 mt-6"></div>
           )}
         </>
       )}
 
-      {/* Modal for wallpaper preview */}
+      {/*============================================= Modal for wallpaper preview =========================================*/}
       <AnimatePresence>
         {selectedWallpaper && (
           <motion.div

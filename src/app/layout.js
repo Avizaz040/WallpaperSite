@@ -2,6 +2,8 @@ import { Geist, Geist_Mono, Michroma } from "next/font/google";
 import "./globals.css";
 import Footer from "@/components/Footer";
 import ScrollToTopButton from "@/components/ScrollToTopButton";
+import ClientProvider from "@/contextApi/ClientProvider";
+
 
 
 
@@ -39,10 +41,12 @@ export default function RootLayout({ children }) {
       <body
         className={`${geistSans.variable} ${geistMono.variable} ${michroma.variable} antialiased`}
       >
+        {/* ClientProvider wraps the entire app to provide context */}
+        <ClientProvider>
         {children}
         <ScrollToTopButton />
-        {/* Footer component */}
         <Footer />
+        </ClientProvider>
       </body>
     </html>
   );
