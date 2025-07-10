@@ -3,7 +3,7 @@ import "./globals.css";
 import Footer from "@/components/Footer";
 import ScrollToTopButton from "@/components/ScrollToTopButton";
 import ClientProvider from "@/contextApi/ClientProvider";
-
+import { SpeedInsights } from "@vercel/speed-insights/next"
 
 
 
@@ -44,6 +44,7 @@ export default function RootLayout({ children }) {
         {/* ClientProvider wraps the entire app to provide context */}
         <ClientProvider>
         {children}
+        <SpeedInsights />
         <ScrollToTopButton />
         <Footer />
         </ClientProvider>

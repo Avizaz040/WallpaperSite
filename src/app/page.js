@@ -1,5 +1,6 @@
 // src/app/page.tsx
 // Import Next.js components for optimized images and routing
+
 import Image from "next/image";
 import Link from "next/link";
 // Import the Navbar component from the components directory

@@ -101,7 +101,7 @@ export default function Home() {
       ) : (
         <>
           {/*------------------------------------------- Category filter buttons --------------------------------------------*/}
-          <div className="flex lg:flex-wrap justify-start lg:justify-center whitespace-nowrap gap-3 mb-6 overflow-x-auto scrollbar-hide lg:overflow-visible">
+          <section className="flex lg:flex-wrap justify-start lg:justify-center whitespace-nowrap gap-3 mb-6 overflow-x-auto scrollbar-hide lg:overflow-visible">
             {categories.map((category) => (
               <button
                 key={category}
@@ -119,10 +119,10 @@ export default function Home() {
                 {category}
               </button>
             ))}
-          </div>
+          </section>
 
           {/*========================================== Wallpapers grid with animation ========================================*/}
-          <motion.div
+          <motion.section
             key={selectedCategory}
             className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-8 gap-4"
             variants={gridVariants}
@@ -148,7 +148,7 @@ export default function Home() {
                 />
               </motion.div>
             ))}
-          </motion.div>
+          </motion.section>
 
           {/*------------------------------------------ Infinite scroll trigger element ----------------------------------*/}
           {visibleCount < filtered.length && (
@@ -160,7 +160,7 @@ export default function Home() {
       {/*============================================= Modal for wallpaper preview =========================================*/}
       <AnimatePresence>
         {selectedWallpaper && (
-          <motion.div
+          <motion.section
             initial={{ opacity: 0, scale: 0.95 }}
             animate={{ opacity: 1, scale: 1 }}
             exit={{ opacity: 0, scale: 0.95 }}
@@ -171,7 +171,7 @@ export default function Home() {
               wallpaper={selectedWallpaper}
               onClose={() => setSelectedWallpaper(null)}
             />
-          </motion.div>
+          </motion.section>
         )}
       </AnimatePresence>
     </main>
