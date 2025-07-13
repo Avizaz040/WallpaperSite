@@ -13,23 +13,33 @@ export default function HomePage() {
     <main className="min-h-screen text-white bg-gradient-to-br from-black via-teal-900 to-gray-900">
       {/* Navigation bar at the top */}
       <Navbar />
-      
+
       {/* Hero Section: Title, description, and call-to-action button */}
-      <section className="min-h-screen flex flex-col items-center justify-center gap-[2rem] bg-black/10 text-center py-6 px-6 shadow-2xl rounded-t-lg pt-[6rem] mb-[6rem]">
-        <h1 className="text-4xl sm:text-5xl font-bold font-sans">
-          Stunning Mobile Wallpapers
-        </h1>
-        <p className="text-lg sm:text-xl max-w-xl">
-          Download HD mobile wallpapers in various categories – 100% free and
-          updated daily.
-        </p>
-        {/* Button linking to the wallpapers page */}
-        <Link
-          href="/mobile_wallpapers"
-          className="bg-blue-500 hover:bg-blue-600 text-white px-6 py-3 rounded-full font-semibold transition"
-        >
-          Browse Wallpapers
-        </Link>
+      <section className="min-h-screen flex flex-col lg:flex-row items-center justify-center gap-[2rem] bg-black/10 text-center py-6 px-6 shadow-2xl rounded-t-lg pt-[8rem] mb-[6rem]">
+        <div className="flex flex-col items-center justify-center gap-[2rem]">
+          <h1 className="text-4xl sm:text-5xl font-bold font-sans">
+            Stunning Mobile Wallpapers
+          </h1>
+          <p className="text-lg sm:text-xl max-w-xl">
+            Download HD mobile wallpapers in various categories – 100% free and
+            updated daily.
+          </p>
+          {/* Button linking to the wallpapers page */}
+          <Link
+            href="/mobile_wallpapers"
+            className="bg-blue-500 hover:bg-blue-600 text-white px-6 py-3 rounded-full font-semibold transition"
+          >
+            Browse Wallpapers
+          </Link>
+          
+        </div>
+        <Image
+            src="/heroImg.png"
+            alt="Hero Image"
+            width={600}
+            height={300}
+            className=" rounded-lg mt-6"
+          />
       </section>
 
       {/* Categories Section: Displays wallpaper categories as cards */}
