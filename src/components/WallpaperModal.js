@@ -3,6 +3,7 @@
 import React, { useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
+import { ThumbsUp, ThumbsDown, MoveRight } from "lucide-react";
 
 // Modal component to display a wallpaper preview and download option
 export default function WallpaperModal({ wallpaper, onClose }) {
@@ -34,12 +35,13 @@ export default function WallpaperModal({ wallpaper, onClose }) {
             {wallpaper.title}
           </h2>
           {/* Back button to close modal */}
-          <button
+          {/* <button
             className="bg-black/40 text-white border border-white/20 py-1 px-2 rounded hover:bg-gray-500 transition cursor-pointer"
             onClick={onClose}
           >
             Back
-          </button>
+          </button> */}
+          <MoveRight className="text-white cursor-pointer" onClick={onClose}/>
         </div>
 
         {/* Wallpaper image */}
@@ -58,15 +60,31 @@ export default function WallpaperModal({ wallpaper, onClose }) {
             }`}
           />
         </div>
+        <section className="w-full flex items-center justify-between gap-4">
+          <div className="flex items-center gap-6">
+            <div>
+              <ThumbsUp className="text-indigo-500 cursor-pointer" />
+              <span className="text-sm text-white">
+                {wallpaper.likes} Likes
+              </span>
+            </div>
+            <div>
+              <ThumbsDown className="text-red-500 cursor-pointer" />
+              <span className="text-sm text-white">
+                {wallpaper.dislikes} Dislikes
+              </span>
+            </div>
+          </div>
 
-        {/* Download button for the wallpaper */}
-        <Link
-          href={`/api/download?url=${encodeURIComponent(wallpaper.image)}`}
-          download
-          className="bg-black/40 text-white border border-white/20 py-2 px-4 rounded hover:bg-gray-500 transition"
-        >
-          Download
-        </Link>
+          {/* Download button for the wallpaper */}
+          <Link
+            href={`/api/download?url=${encodeURIComponent(wallpaper.image)}`}
+            download
+            className="bg-black/40 text-white border border-white/20 py-2 px-4 rounded hover:bg-gray-500 transition"
+          >
+            Download
+          </Link>
+        </section>
       </div>
     </div>
   );
