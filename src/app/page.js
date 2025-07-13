@@ -15,7 +15,7 @@ export default function HomePage() {
       <Navbar />
 
       {/* Hero Section: Title, description, and call-to-action button */}
-      <section className="min-h-screen flex flex-col lg:flex-row items-center justify-center gap-[2rem] bg-black/10 text-center py-6 px-6 shadow-2xl rounded-t-lg pt-[8rem] mb-[6rem]">
+      <section className="min-h-screen flex flex-col lg:flex-row items-center justify-center gap-[2rem] bg-black/20 text-center py-6 px-6 shadow-2xl rounded-t-lg pt-[8rem] mb-[6rem]">
         <div className="flex flex-col items-center justify-center gap-[2rem]">
           <h1 className="text-4xl sm:text-5xl font-bold font-sans">
             Stunning Mobile Wallpapers
