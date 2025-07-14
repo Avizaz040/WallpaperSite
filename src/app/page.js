@@ -10,14 +10,14 @@ import Navbar from "@/components/Navbar";
 export default function HomePage() {
   return (
     // Main container with gradient background and padding
-    <main className="min-h-screen text-white bg-gradient-to-br from-black via-teal-900 to-gray-900">
+    <main className=" text-white bg-gradient-to-br from-black via-teal-900 to-gray-900">
       {/* Navigation bar at the top */}
       <Navbar />
 
       {/* Hero Section: Title, description, and call-to-action button */}
-      <section className="min-h-screen flex flex-col lg:flex-row items-center justify-center gap-[2rem] bg-black/20 text-center py-6 px-6 shadow-2xl rounded-t-lg pt-[8rem] mb-[6rem]">
+      <section className="min-h-screen flex flex-col lg:flex-row items-center justify-center gap-[1rem] lg:gap-[2rem] bg-black/20 text-center py-6 px-6 shadow-2xl rounded-t-lg pt-[8rem] mb-[6rem]">
         <div className="flex flex-col items-center justify-center gap-[2rem]">
-          <h1 className="text-4xl sm:text-5xl font-bold font-sans">
+          <h1 className="text-4xl sm:text-5xl font-bold font-sans bg-gradient-to-r from-teal-400 via-pink-400 to-blue-500 text-transparent bg-clip-text">
             Stunning Mobile Wallpapers
           </h1>
           <p className="text-lg sm:text-xl max-w-xl">
