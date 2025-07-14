@@ -47,7 +47,7 @@ function Navbar() {
               <Link href="/mobile_wallpapers">Mobile Wallpapers</Link>
             </li>
             <li>
-              <Link href="/">Desktop Wallpapers</Link>
+              <Link href="/desktop_wallpapers">Desktop Wallpapers</Link>
             </li>
           </ul>
         </nav>
