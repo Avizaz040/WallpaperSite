@@ -26,7 +26,7 @@ function MobileNavbar() {
           <Link
           key={href}
           href={href}
-          className={`flex flex-col items-center gap-1 text-sm ${isActive ? 'text-yellow-400 font-semibold' : 'text-white'}`}
+          className={`flex flex-col items-center gap-1 text-sm ${isActive ? 'text-yellow-400 font-semibold underline underline-offset-2' : 'text-white'}`}
           >
             {icon}
             <span>{label}</span>
