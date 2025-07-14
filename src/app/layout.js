@@ -4,6 +4,7 @@ import Footer from "@/components/Footer";
 import ScrollToTopButton from "@/components/ScrollToTopButton";
 import ClientProvider from "@/contextApi/ClientProvider";
 import { SpeedInsights } from "@vercel/speed-insights/next"
+import MobileNavbar from "@/components/MobileNavbar";
 
 
 
@@ -44,6 +45,7 @@ export default function RootLayout({ children }) {
       <body
         className={`${geistSans.variable} ${geistMono.variable} ${michroma.variable} antialiased`}
       >
+        <MobileNavbar/>
         {/* ClientProvider wraps the entire app to provide context */}
         <ClientProvider>
         {children}
