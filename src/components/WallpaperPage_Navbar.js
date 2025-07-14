@@ -39,7 +39,7 @@ function WallpaperPage_Navbar() {
           />
           <div>
             <h1
-              className={`font-michroma text-lg sm:text-xl lg:text-3xl font-bold text-gray-100 leading-6 ${
+              className={`font-michroma text-lg sm:text-xl lg:text-3xl font-bold leading-normal bg-gradient-to-r from-gray-300  to-gray-500 text-transparent bg-clip-text ${
                 showSearch ? "hidden" : " "
               }`}
             >

@@ -34,7 +34,7 @@ function Navbar() {
             height={64}
             className="w-6 sm:w-16 invert py-1"
           />
-          <h1 className="font-michroma text-lg lg:text-3xl font-bold text-white leading-6">
+          <h1 className="font-michroma text-lg lg:text-3xl font-bold leading-normal bg-gradient-to-r from-gray-300  to-gray-500 text-transparent bg-clip-text">
             Mogetzer
           </h1>
         </Link>
