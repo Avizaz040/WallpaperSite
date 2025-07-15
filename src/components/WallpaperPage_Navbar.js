@@ -1,14 +1,14 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import {useSearch} from "@/contextApi/SearchContext";
+import { useSearch } from "@/contextApi/SearchContext";
 import Image from "next/image";
 import Link from "next/link";
 import SearchBar from "./SearchBar";
 
-
 function WallpaperPage_Navbar() {
-  const { showSearch, setShowSearch, searchQuery, setSearchQuery } = useSearch();
+  const { showSearch, setShowSearch, searchQuery, setSearchQuery } =
+    useSearch();
   const [isScrolled, setIsScrolled] = useState(false);
 
   useEffect(() => {
@@ -21,9 +21,11 @@ function WallpaperPage_Navbar() {
   }, []);
 
   return (
-    <nav className={`fixed top-0 left-0 w-full z-50 px-6 lg:px-[6rem] py-4 flex flex-col justify-between transition-all duration-300 ${
+    <nav
+      className={`fixed top-0 left-0 w-full z-50 px-6 lg:px-[6rem] py-4 flex flex-col justify-between transition-all duration-300 ${
         isScrolled ? "backdrop-blur-md bg-black/30 shadow-md" : "bg-transparent"
-      }`}>
+      }`}
+    >
       <div className="flex justify-between items-center mb-2">
         {/* Logo and site title */}
         <Link
@@ -47,21 +49,35 @@ function WallpaperPage_Navbar() {
             </h1>
           </div>
         </Link>
-
-        {/* Desktop search input */}
-        <SearchBar 
-          showSearch={showSearch}
-          setShowSearch={setShowSearch}
-          searchQuery={searchQuery}
-          setSearchQuery={setSearchQuery}
-        />
+        <section className={` ${showSearch ? "w-full" : ""} flex gap-[2rem] items-center justify-between lg:mt-4`}>
+          <nav className=" hidden lg:block text-center">
+            <ul className="text-white flex justify-between gap-4 whitespace-nowrap">
+              <li>
+                <Link href="/">Home</Link>
+              </li>
+              <li>
+                <Link href="/mobile_wallpapers">Mobile Wallpapers</Link>
+              </li>
+              <li>
+                <Link href="/desktop_wallpapers">Desktop Wallpapers</Link>
+              </li>
+            </ul>
+          </nav>
+          {/* Desktop search input */}
+          <SearchBar
+            showSearch={showSearch}
+            setShowSearch={setShowSearch}
+            searchQuery={searchQuery}
+            setSearchQuery={setSearchQuery}
+          />
+        </section>
       </div>
       {/* Decorative border below header */}
       <div className="w-full flex item-center justify-center overflow-hidden rounded-lg shadow-lg lg:mb-6">
         <div className="animated-curved-border"></div>
       </div>
     </nav>
-  )
+  );
 }
 
-export default WallpaperPage_Navbar
+export default WallpaperPage_Navbar;
