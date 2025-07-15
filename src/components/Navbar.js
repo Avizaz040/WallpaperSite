@@ -38,7 +38,7 @@ function Navbar() {
             Mogetzer
           </h1>
         </Link>
-        <nav className="hidden lg:block pr-[8rem]">
+        <nav className="hidden lg:block">
           <ul className="text-white flex justify-between gap-4">
             <li>
               <Link href="/">Home</Link>

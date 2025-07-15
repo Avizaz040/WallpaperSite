@@ -4,7 +4,7 @@ import Image from 'next/image';
 
 export default function NotFound() {
   return (
-    <div className="min-h-screen flex flex-col items-center justify-center bg-black text-white px-4 text-center">
+    <div className="min-h-screen flex flex-col items-center justify-center bg-gradient-to-r from-black to-teal-900  text-white px-4 text-center">
       <Image
         src="/coming-soon.svg" // optional illustration
         alt="Coming Soon"
